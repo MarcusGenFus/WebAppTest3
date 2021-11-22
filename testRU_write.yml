@@ -1,0 +1,242 @@
+# =============================================================================
+# Devices
+#
+# All devices for which diagnostic mapping details are captured/mapped should
+# be explicitly declared and uniquely named. Include all:
+#  - i/o details                (i.e. list and name the channels, ports, etc)
+#  - internal configuration     (e.g. a hardware knob's setting; variants)
+#  - calibrations?              (maybe...)
+# =============================================================================        
+
+pearson sensors:
+    # parameters are documented as they are listed on the data sheet
+  '1':
+    scaling (A/V): 1000
+    scaling accuracy (%): 50.0
+    droop rate (%/ms): 0.05
+    location note: on input of amplifier
+
+
+mirnov sensors:
+#
+# Mirnov sensors ("b-probes") installed on/in the vessel
+#
+  '3':
+    location:
+      z position (m): 2.34
+      theta (degrees): 123.0
+      radius (m): 333e-3
+    coils:
+      poloidal:
+        wiring: A
+      toroidal:
+        wiring: B
+      radial:
+        wiring: C
+
+  '2':
+    location:
+      z position (m): 2.1
+      theta (degrees): 222
+      radius (m): 333e-3
+    coils:
+      poloidal:
+        wiring: A
+      toroidal:
+        wiring: B
+      radial:
+        wiring: C
+
+
+circuit busses:
+#
+# passive electrical mirnov circuits which receive b-probe signals in Odin
+# two sensors and a pearson probe connect to a circuit in this case
+#
+  '1':
+    mirnov inputs:
+      '1':
+        channels:
+        - A
+        - B
+        - C
+        integrations:
+        - non-integrated
+        - integrated
+      '2':
+        channels:
+        - A
+        - B
+        - C
+        integrations:
+        - non-integrated
+        - integrated
+    pearson inputs: 1
+
+
+triggers:
+#
+# Signals that trigger DAQs
+#
+  primary measurement:
+    time delay (s): 1100e-6
+
+  slow fire:
+    time delay (s): 10.987654321
+
+  software:
+    time delay (s): 0
+
+
+digitizer busses:
+#
+# DAQ device from DTACQ that has multiple measurement busses
+#
+  acq2106_199:
+    connection string: 172.25.226.231
+    clock type: internal                                    # internal or external
+    clock rate (sample/s): 2e6
+    samples post trigger (s): 20e-3
+    samples pre trigger (s): 0
+    trigger source: hardware                                # hardware or software
+    trigger direction: rising                               # rising or falling
+    sites:
+      '1':
+        type: analog                                        # analog or digitial
+        direction: input                                    # input or output
+        channel count: 16
+        channel bit depth: 16
+        device register settings:
+                    # see page 57 (clock synchronization) of manual
+          clock master: 1
+          clock division: 1
+          clock direction: 1
+        channels:
+                    # input range must be one of [0.01, 0.1, 1.0, 10.0]
+          '1':
+            input range (V): 1.0
+          '2':
+            input range (V): 1.0
+          '3':
+            input range (V): 1.0
+          '4':
+            input range (V): 1.0
+          '5':
+            input range (V): 1.0
+          '6':
+            input range (V): 1.0
+          '7':
+            input range (V): 1.0
+          '8':
+            input range (V): 1.0
+          '9':
+            input range (V): 1.0
+          '10':
+            input range (V): 1.0
+          '11':
+            input range (V): 1.0
+          '12':
+            input range (V): 1.0
+          '13':
+            input range (V): 1.0
+          '14':
+            input range (V): 1.0
+          '15':
+            input range (V): 1.0
+          '16':
+            input range (V): 1.0
+      '2':
+        type: analog                                        # analog or digitial
+        direction: input                                    # input or output
+        channel count: 16
+        channel bit depth: 16
+        device register settings:
+          clock master: 1
+          clock division: 1
+          clock direction: 1
+        channels:
+          '1':
+            input range (V): 1.0
+          '2':
+            input range (V): 1.0
+          '3':
+            input range (V): 1.0
+          '4':
+            input range (V): 1.0
+          '5':
+            input range (V): 1.0
+          '6':
+            input range (V): 1.0
+          '7':
+            input range (V): 1.0
+          '8':
+            input range (V): 1.0
+          '9':
+            input range (V): 1.0
+          '10':
+            input range (V): 1.0
+          '11':
+            input range (V): 1.0
+          '12':
+            input range (V): 1.0
+          '13':
+            input range (V): 1.0
+          '14':
+            input range (V): 1.0
+          '15':
+            input range (V): 1.0
+          '16':
+            input range (V): 1.0
+      '5':
+        type: analog                                     # analog or digitial
+        direction: output                                # input or output
+        channel count: 16
+        channel bit depth: 16
+        device register settings:
+          clock master: 1
+          clock division: 1
+          clock direction: 1
+
+
+bus connections:
+# =============================================================================
+# Diagnostic Mapping
+#
+# List all inter-device connection details. Declare all of the device
+# insitances and their i/o ports as "devices", above.
+# =============================================================================
+
+#
+# DTAQ digitizer busses full of various diagnostics
+#
+- digitizer bus: acq2106_199
+  sites:
+    '1':
+      circuit bus: '1'
+      mirnov inputs:
+        '1':
+          mirnov sensor: '3'
+        '2':
+          mirnov sensor: '2'
+      pearson inputs:
+        '1':
+          pearson sensor: '1'
+            # "2":
+            #     site: 5
+
+
+
+trigger connections:
+#
+# Trigger signal connections/fanouts (i.e. one signal triggers many devices)
+#
+  primary measurement:
+    trigger: slow fire
+    devices:
+      digitizers:
+      - '1'
+  shot start:
+    trigger: software
+    devices:
+      triggers:
+      - slow fire

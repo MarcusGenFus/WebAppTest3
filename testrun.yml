@@ -1,0 +1,35 @@
+version: 3.7
+
+services:
+  flask:
+    # Build flask service using the Dockerfile in the flask app directory
+    build: ./WebAppRemoteServer
+
+    # Assign a name for our container
+    container_name: flask
+
+    # Docker will always restart the service
+    restart: always
+
+    # Set up any environment variables
+    environment:
+    - APP_NAME=pi3StatusWebApp
+    - DB_USERNAME=root
+    - DB_ROOT_PASSWORD=123
+    - FLASK_APP=run.py
+
+    # Accessible ports to outside
+    # uWSGI will be serving app on this port
+    expose:
+    - 8080
+
+    # Mount the continer log to the local log directory
+    volumes:
+    - ./log/uwsgi:/var/log/uwsgi
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    restart: never
+    ports:
+    - 80:80
