@@ -1,0 +1,527 @@
+# =============================================================================
+# PI3 Configuration Yaml File
+# 
+# Taken from Kelly's Pi3_config.xlsx file
+# 
+# Author: Ali Esbak
+# =============================================================================
+
+Power Source:
+- Formation:
+
+    Cap Banks:
+    - 3A:
+        Location: CFL-2
+        Caps:
+        - 325
+        - 327
+        - 329
+        - 331
+        Charger:
+        - PS2
+
+        Rail Gap:
+          ID: RGS12-02
+          Gas Mix:
+          - Pressure:
+              value: 20
+              units: psi
+          - SF6:
+              value: 6
+              units: '%'
+          - Ar:
+              value: 94
+              units: '%'
+          Trigger: SG1
+
+        Spark Gap:
+          ID: SGT-1
+          Gas Mix:
+          - Pressure:
+              value: 35
+              units: psi
+          - Dry Air:
+              value: 100
+              units: '%'
+          Trigger: SGT-1
+
+        Diode Stacks:
+        - DS-AL:
+            Caps:
+            - 325
+            - 327
+            Cable Connections:
+            - F000
+            - F015
+        - DS-AU:
+            Caps:
+            - 329
+            - 331
+            Cable Connections:
+            - F015
+            - F075
+            - F120
+    - 3B:
+        Location: CFL-1
+        Caps:
+        - 324
+        - 326
+        - 3288
+        - 330
+        Charger:
+        - PS2
+
+        Rail Gap:
+          ID: RGS07-02
+          Gas Mix:
+          - Pressure:
+              value: 20
+              units: psi
+          - SF6:
+              value: 6
+              units: '%'
+          - Ar:
+              value: 94
+              units: '%'
+          Trigger: SG1
+
+        Spark Gap:
+          ID: SGT-1
+          Gas Mix:
+          - Pressure:
+              value: 35
+              units: psi
+          - Dry Air:
+              value: 100
+              units: '%'
+          Trigger: SGT-1
+
+        Diode Stacks:
+        - DS-BL:
+            Caps:
+            - 324
+            - 326
+            Cable Connections:
+            - F060
+            - F075
+        - DS-BU:
+            Caps:
+            - 328
+            - 330
+            Cable Connections:
+            - F135
+            - F135
+            - F180
+
+    - 3C:
+        Location: CFU-3
+        Caps:
+        - 308
+        - 310
+        - 312
+        - 314
+        Charger:
+        - PS1
+
+        Rail Gap:
+          ID: RGS-01-01
+          Gas Mix:
+          - Pressure:
+              value: 20
+              units: psi
+          - SF6:
+              value: 6
+              units: '%'
+          - Ar:
+              value: 94
+              units: '%'
+          Trigger: SG1
+
+        Spark Gap:
+          ID: SGT-1
+          Gas Mix:
+          - Pressure:
+              value: 35
+              units: psi
+          - Dry Air:
+              value: 100
+              units: '%'
+          Trigger: SGT-1
+
+        Diode Stacks:
+        - DS-CL:
+            Caps:
+            - 308
+            - 310
+            Cable Connections:
+            - F000
+            - F015
+        - DS-CU:
+            Caps:
+            - 312
+            - 314
+            Cable Connections:
+            - F060
+            - F075
+            - F345
+
+Transformers:
+
+- T1:
+
+    Winding Configuration: Series
+    MOV:
+    - MS-1
+    - MS-2
+    Input Connection:
+    - 5A
+    Output Connection:
+    - L1
+    - L2
+
+- T2:
+
+    Winding Configuration: Series
+    MOV:
+    - MS-1
+    - MS-2
+    Input Connection:
+    - 5C
+    Output Connection:
+    - L3
+    - L4
+
+- T3:
+
+    Winding Configuration: Series
+    MOV:
+    - MS-1
+    - MS-2
+    Input Connection:
+    - 5E
+    Output Connection:
+    - L5
+    - L6
+
+Inductor:
+
+- L1:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG1
+    - IG1
+    - IG3A
+    - IG3A
+    Output Connections:
+    - F225
+    - F240
+    - F285
+    - F300
+    - F345
+    Diode Stacks:
+    - L1-1
+    - L1-2
+    - L1-3
+    - L1-4
+    - L1-5
+    - L1-6
+
+- L2:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG2
+    - IG2
+    - IG3B
+    - IG3B
+    Output Connections:
+    - F045
+    - F060
+    - F105
+    - F120
+    - F165
+    - F180
+    Diode Stacks:
+    - L2-1
+    - L2-2
+    - L2-3
+    - L2-4
+    - L2-5
+    - L2-6
+
+- L3:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG7
+    - IG7
+    - IG8A
+    - IG8A
+    Output Connections:
+    - F015
+    - F015
+    - F045
+    - F120
+    - F135
+    - F135
+    Diode Stacks:
+    - L3-1
+    - L3-2
+    - L3-3
+    - L3-4
+    - L3-5
+    - L3-6
+- L4:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG10
+    - IG10
+    - IG8B
+    - IG8B
+    Output Connections:
+    - F000
+    - F165
+    - F240
+    - F255
+    - F255
+    - F285
+    Diode Stacks:
+    - L4-1
+    - L4-2
+    - L4-3
+    - L4-4
+    - L4-5
+    - L4-6
+
+- L5:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG12
+    - IG12
+    - IG14B
+    - IG14B
+    Output Connections:
+    - F060
+    - F075
+    - F075
+    - F105
+    - F195
+    - F195
+    Diode Stacks:
+    - L5-1
+    - L5-2
+    - L5-3
+    - L5-4
+    - L5-5
+    - L5-6
+
+- L6:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG11
+    - IG11
+    - IG14A
+    - IG14A
+    Output Connections:
+    - F180
+    - F225
+    - F300
+    - F315
+    - F315
+    - F345
+    Diode Stacks:
+    - L6-1
+    - L6-2
+    - L6-3
+    - L6-4
+    - L6-5
+    - L6-6
+
+- L7:
+    Configuration:
+    - Inductance:
+        value: 6
+        units: uH
+    Input Connections:
+    - IG1
+    - IG3A
+    Output Connections:
+    - F225
+    - F240
+    - F285
+    - F300
+    - F345
+    Diode Stacks:
+    - L1-1
+    - L1-2
+    - L1-3
+    - L1-4
+    - L1-5
+    - L1-6
+
+Feedthrough Connections:
+- F000:
+    Connections:
+    - 3A
+    - 3C
+    - 3E
+    - 3F
+    - L1
+    - L4
+- F015:
+    Connections:
+    - 3A
+    - 3A
+    - 3C
+    - L3
+    - L3
+
+
+Injector:
+
+  Feedthrough Assembly:
+    material: Tungsten coated ground shield
+
+  Feedthrough Bus rods:
+    material: copper
+    diameter: small
+
+  Puff Valves:
+    type: piezo
+    quantity: 25
+
+  Gun Inner Electrode:
+    material: Tungsten Coated Aluminum
+
+  Gun Outer Electrode:
+    origin: pi1
+    material: tungsten coated stainless
+
+  Target Chamber:
+    material: Instrumented Aluminum
+    wall thickness:
+      value: 50
+      units: mm
+
+  Center Shaft:
+    material: Tungsten coated Aluminum Tube
+    wall thickness:
+      value: 25
+      units: mm
+
+  Vacuum Pumps:
+    Active pumps:
+    - cryo:
+      quantity: 2
+      model number: nan
+      power: nan
+    - turbo:
+      quantity: 2
+      model number: nan
+      power: nan
+    - roughing:
+      quantity: nan
+      model number: nan
+      power: nan
+    Total Volumetric Rate:
+      value: 2000
+      units: l/s
+
+  Target chamber Lithium Coaters:
+    version: 1
+    seal: bellows
+    quantity: 4
+
+  Gun Lithium coaters:
+    version: 2
+    seal: sliding seal
+    quantity: 6
+
+  Nose Insulator: shorted
+
+
+
+Coils:
+
+# Coil configurations - per shot basis
+
+- Coil A:
+    Turns: 224
+    Z location: 73
+    Trigger: Mag A
+    Driver circuit: Driver B
+    FEMM polarity: Positive
+
+- Coil B:
+    Turns: 224
+    Z location: 6
+    Trigger: NC
+    Driver circuit: NC
+    FEMM polarity: Negative
+
+- Coil C:
+    Turns: 748
+    Z location: 33
+    Trigger: Mag C
+    Driver circuit: Driver C
+    FEMM polarity: Negative
+
+- Coil D:
+    Turns: 140
+    Z location: 83
+    Trigger: Mag B & D
+    Driver circuit: Driver D
+    FEMM polarity: Negative
+
+- Coil E:
+    Turns: 102
+    Z location: 162
+    Trigger: Mag A
+    Driver circuit: Driver PFC1
+    FEMM polarity: Positive
+
+- Coil F:
+    Turns: 224
+    Z location: 293
+    Trigger: Mag A
+    Driver circuit: Driver PFC2
+    FEMM polarity: Positive
+
+Fast Delay Boards:
+
+  DB0: FORMDETECT
+  DB1: SG1 Trig
+  DB2: 50KV Off
+  DB15: Peaking Trig Monitor
+  DB16: Peaking Trig 0
+  DB17: Peaking Trig 1
+  DB18: Sustain Trig
+  DB19: Spare
+  DB20: Preform Trig
+  DB21: FD Gate Time
+  DB22: Form_Trig_Out
+  DB23: FD_In
+  DB24: TS_Scope
+  DB25: TS_QSW
+  DB26: TS_Lamp
+
+
+
+
+
